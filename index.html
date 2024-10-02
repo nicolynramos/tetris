@@ -23,27 +23,9 @@
 </head>
 <body>
 <canvas width="320" height="640" id="game"></canvas>
-<button id="restartButton">Restart Game</button>
 <script>
 // https://tetris.fandom.com/wiki/Tetris_Guideline
-function restartGame() {
-  cancelAnimationFrame(rAF);  // Cancel the current animation frame
-  gameOver = false;            // Set the game over flag to false
 
-  // Reset the playfield
-  for (let row = -2; row < playfield.length; row++) {
-    for (let col = 0; col < playfield[row].length; col++) {
-      playfield[row][col] = 0;
-    }
-  }
-
-  // Get a new tetromino sequence
-  tetrominoSequence.length = 0;
-  tetromino = getNextTetromino();
-
-  // Start the game loop again
-  rAF = requestAnimationFrame(loop);
-}
 // get a random integer between the range of [min,max]
 // @see https://stackoverflow.com/a/1527820/2124254
 function getRandomInt(min, max) {
@@ -329,7 +311,6 @@ document.addEventListener('keydown', function(e) {
     tetromino.row = row;
   }
 });
-document.getElementById('restartButton').addEventListener('click', restartGame);
 
 // start the game
 rAF = requestAnimationFrame(loop);
