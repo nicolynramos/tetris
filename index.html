@@ -4,7 +4,13 @@
   <title>Basic Tetris HTML Game</title>
   <meta charset="UTF-8">
   <style>
-  html, body {
+@font-face {
+	    font-family: 'BDCartoonShoutRegular';
+        src: url('BD_Cartoon_Shout-webfont.ttf') format('truetype');
+	    font-weight: normal;
+	    font-style: normal;
+      }
+html, body {
     height: 100%;
     margin: 0;
   }
@@ -14,15 +20,54 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align:center; 
+    color:white;
   }
 
   canvas {
     border: 1px solid white;
   }
+  .content {
+    display: flex;
+    align-items: center;
+  }
+  .game, .instructions {
+    margin: 5px;
+  }
+  .instructions{
+    width: 350px;
+    font-family: 'Courier New', Courier, monospace;
+  }
+  #restartButton {
+    background-color: white;
+    color: black;
+    padding: 3%;
+    cursor: pointer;
+    border: 2px solid white;
+  }
+  #restartButton:hover {
+    background-color: black;
+    color: white;
+  }
+
+  h1, #restartButton {
+    font-family: BDCartoonShoutRegular;
+    text-align: center;
+  }
   </style>
 </head>
 <body>
-<canvas width="320" height="640" id="game"></canvas>
+  <div class="content">
+    <div class="game">  
+    <canvas width="320" height="640" id="game"></canvas>
+    </div>
+    <div class="instructions">
+      <h1>HTML5 Tetris</h1>
+      <p>Welcome to Tetris!</p>
+      <p>Use your arrow keys to move blocks <strong>left</strong> and <strong>right</strong>. <br> Use the <strong>down</strong> arrow to increase the block speed. <br> Use the <strong>up</strong> arrow to rotate blocks.</p>
+      <button id="restartButton">Restart Game</button>
+    </div>
+  </div>
 <script>
 // https://tetris.fandom.com/wiki/Tetris_Guideline
 
@@ -151,8 +196,6 @@ function showGameOver() {
   context.textAlign = 'center';
   context.textBaseline = 'middle';
   context.fillText('GAME OVER!', canvas.width / 2, canvas.height / 2);
-  context.fillText('Press Space to restart!', canvas.width / 2, canvas.height / 2);
-
 }
 
 const canvas = document.getElementById('game');
@@ -313,6 +356,7 @@ document.addEventListener('keydown', function(e) {
     tetromino.row = row;
   }
 });
+
 function restartGame() {
   cancelAnimationFrame(rAF);  // Cancel the current animation frame
   gameOver = false;            // Set the game over flag to false
@@ -331,9 +375,11 @@ function restartGame() {
   // Start the game loop again
   rAF = requestAnimationFrame(loop);
 }
-  
+
 // start the game
 rAF = requestAnimationFrame(loop);
+document.getElementById('restartButton').addEventListener('click', restartGame);
+
 </script>
 </body>
 </html>
